@@ -18,6 +18,7 @@ export type User = {
     name: string | null
     email: string
     role: string
+    section: string
     createdAt: Date
 }
 
@@ -36,6 +37,10 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "email",
     header: "Email",
+  },
+  {
+    accessorKey: "section",
+    header: "Section",
   },
   {
     accessorKey: "role",

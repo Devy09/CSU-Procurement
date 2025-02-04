@@ -44,6 +44,9 @@ export default function SignInPage() {
         case 'OFFICE_HEAD':
           router.push('/dashboard/officehead-dashboard')
           break
+        case 'BAC':
+          router.push('/dashboard/bac-dashboard')
+          break
         default:
           router.push('/dashboard')
       }

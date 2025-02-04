@@ -17,6 +17,7 @@ export async function GET(
         createdBy: {
           select: {
             name: true,
+            designation: true,
             saino: true,
             alobsno: true,
           },

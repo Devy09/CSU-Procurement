@@ -81,10 +81,10 @@ export default function PurchaseRequestFormWrapper({ onSuccess }: PurchaseReques
   return (
     <Dialog open={isMainDialogOpen} onOpenChange={setIsMainDialogOpen}>
       <DialogTrigger asChild>
-        <Button><ClipboardPlus /> Purchase Request</Button>
+        <Button className="bg-red-950 text-white hover:bg-red-900"><ClipboardPlus /> Purchase Request</Button>
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader className='m-4'>
+        <DialogHeader className='bg-red-950 text-white p-6 rounded-lg'>
           <DialogTitle className='text-2xl'>Purchase Request Form</DialogTitle>
         </DialogHeader>
         <PurchaseRequestForm />
@@ -246,11 +246,11 @@ function PurchaseRequestForm() {
       <div className="flex justify-end">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button><PackagePlus /> Add New Item</Button>
+            <Button variant="customMaroon"><PackagePlus /> Add New Item</Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogHeader>
-              <DialogTitle className='text-2xl mb-4'>Add New Item</DialogTitle>
+            <DialogHeader className='bg-red-950 text-white p-6 rounded-lg'>
+              <DialogTitle className='text-2xl'>Add New Item</DialogTitle>
             </DialogHeader>
             <div className="flex flex-col gap-4">
               <Select onValueChange={(value) => handleSelectChange('description', value)}>
@@ -318,7 +318,7 @@ function PurchaseRequestForm() {
                 onChange={handleInputChange}
               />
               
-              <Button onClick={addItem}><PackagePlus /> Add Item</Button>
+              <Button onClick={addItem} className="bg-red-950 text-white hover:bg-red-900"><PackagePlus /> Add Item</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -352,7 +352,7 @@ function PurchaseRequestForm() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={6} className="text-right font-bold">
-              Total Amount: {formatCurrency(calculateTotal())}
+              Total Amount:
             </TableCell>
             <TableCell className="font-bold">
               {formatCurrency(calculateTotal())}
@@ -377,7 +377,7 @@ function PurchaseRequestForm() {
           className="w-full"
           required
         />
-        <Button type="submit" className='flex items-center' disabled={isLoading}>
+        <Button type="submit" className='flex items-center bg-customMaroon' disabled={isLoading}>
           {isLoading ? 'Submitting...' : <><FileDown /> Submit</>}
         </Button>
       </form>

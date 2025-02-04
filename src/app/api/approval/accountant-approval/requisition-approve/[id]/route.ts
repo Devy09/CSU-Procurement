@@ -24,6 +24,9 @@ export async function PUT(
         id: true,
         role: true,
         name: true,
+        title: true,
+        signatureUrl: true,
+        designation: true
       }
     })
 
@@ -45,6 +48,9 @@ export async function PUT(
         approvedAtAccountant: new Date(),
         accountantName: user.name,
         accountantRole: user.role,
+        accountantTitle: user.title,
+        accountantSignatureUrl: user.signatureUrl,
+        accountantDesignation: user.designation,
         status: 'reviewing',
       },
       include: {

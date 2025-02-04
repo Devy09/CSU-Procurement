@@ -23,7 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import PurchaseRequestFormWrapper from "../../components/requisition-form";
-import { Clock, CheckCircle, Loader2, XCircle } from "lucide-react";
+import { Clock, CheckCircle, Loader2, XCircle, FileClock } from "lucide-react";
 import { format, parseISO } from "date-fns";
 
 interface DataTableProps<TData, TValue> {
@@ -41,6 +41,23 @@ export function DataTable<TData, TValue>({
   const [isLoading, setIsLoading] = React.useState(true);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [userSection, setUserSection] = React.useState<string | null>(null);
+
+  // Fetch user section
+  React.useEffect(() => {
+    const fetchUserSection = async () => {
+      try {
+        const response = await fetch('/api/user/profile');
+        if (!response.ok) throw new Error('Failed to fetch user profile');
+        const userData = await response.json();
+        setUserSection(userData.section);
+      } catch (error) {
+        console.error('Error fetching user section:', error);
+      }
+    };
+
+    fetchUserSection();
+  }, []);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -49,8 +66,14 @@ export function DataTable<TData, TValue>({
         const response = await fetch("/api/officehead-api/officehead-requisition/requisition");
         if (!response.ok) throw new Error("Failed to fetch data");
         const result = await response.json();
+        
+        // Filter data based on user's section
+        const filteredResult = userSection 
+          ? result.filter((item: any) => item.section === userSection)
+          : result;
+
         setData(
-          result.map((item: any) => ({
+          filteredResult.map((item: any) => ({
             id: item.id,
             prno: item.prno,
             department: item.department,
@@ -68,7 +91,7 @@ export function DataTable<TData, TValue>({
     };
 
     if (!initialData) fetchData();
-  }, [initialData]);
+  }, [initialData, userSection]);
 
   const table = useReactTable({
     data,
@@ -99,8 +122,8 @@ export function DataTable<TData, TValue>({
 
 
   return (
-    <div className="w-full px-4">
-      <div className="flex items-center py-4 justify-between">
+    <div className="w-[1200px] p-4">
+      <div className="flex items-center py-4 justify-between ml-6">
         <Input
           placeholder="Search..."
           value={(table.getColumn("prno")?.getFilterValue() as string) ?? ""}
@@ -112,7 +135,7 @@ export function DataTable<TData, TValue>({
         <PurchaseRequestFormWrapper onSuccess={addNewRequest} />
       </div>
       <div className="overflow-x-auto">
-        <div className="rounded-md border">
+        <div className="rounded-md border ml-6">
           <Table className="min-w-full p-4">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -152,7 +175,7 @@ export function DataTable<TData, TValue>({
                             }`}
                           >
                             {cell.getValue() === "pending" && <Clock className="mr-1 h-3 w-3" />}
-                            {cell.getValue() === "reviewing" && <Clock className="mr-1 h-3 w-3" />}
+                            {cell.getValue() === "reviewing" && <FileClock className="mr-1 h-3 w-3" />}
                             {cell.getValue() === "approved" && <CheckCircle className="mr-1 h-3 w-3" />}
                             {cell.getValue() === "rejected" && <XCircle className="mr-1 h-3 w-3" />}
                             {cell.getValue() as string}

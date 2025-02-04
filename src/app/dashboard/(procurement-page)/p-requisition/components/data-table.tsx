@@ -23,7 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import PurchaseRequestFormWrapper from "@/components/requisition-form";
-import { Clock, CheckCircle, Loader2, XCircle } from "lucide-react";
+import { Clock, CheckCircle, Loader2, XCircle, FileClock } from "lucide-react";
 
 
 interface DataTableProps<TData, TValue> {
@@ -112,7 +112,7 @@ export function DataTable<TData, TValue>({
         <PurchaseRequestFormWrapper onSuccess={addNewRequest} />
       </div>
       <div className="rounded-md border ml-4">
-        <Table className="w-[900px]">
+        <Table className="w-[1200px]">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -151,7 +151,7 @@ export function DataTable<TData, TValue>({
                           }`}
                         >
                           {cell.getValue() === "pending" && <Clock className="mr-1 h-3 w-3" />}
-                          {cell.getValue() === "reviewing" && <Clock className="mr-1 h-3 w-3" />}
+                          {cell.getValue() === "reviewing" && <FileClock className="mr-1 h-3 w-3" />}
                           {cell.getValue() === "approved" && <CheckCircle className="mr-1 h-3 w-3" />}
                           {cell.getValue() === "rejected" && <XCircle className="mr-1 h-3 w-3" />}
                           {cell.getValue() as string}

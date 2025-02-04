@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import { ClerkProvider, ClerkLoaded, ClerkLoading  } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/theme-provider";
 
+
 const inter = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function RootLayout({
           </ClerkLoading>
           <ClerkLoaded>{children}</ClerkLoaded>
         </ThemeProvider>
+        
         </body>
       </html>
     </ClerkProvider>
