@@ -7,6 +7,9 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    const { id } = params;
+    const body = await request.json();
+    
     const { userId } = await auth()
     
     if (!userId) {
@@ -36,8 +39,6 @@ export async function PUT(
         { status: 403 }
       )
     }
-
-    const id = params.id
 
     const updatedPO = await prisma.purchaseOrder.update({
       where: {
