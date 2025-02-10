@@ -8,25 +8,17 @@ import { PurchaseRequestActions } from "./purchase-request-actions"
 export type PurchaseRequestColumn = {
   id: string
   prno: string
-  department: string
-  section: string
+  submitted_by: string
   date_submitted: string
   procurement_mode: string
   pr_status: string
+
 }
 
 export const columns: ColumnDef<PurchaseRequestColumn>[] = [
   {
     accessorKey: "prno",
     header: "PR No.",
-  },
-  {
-    accessorKey: "department",
-    header: "Department",
-  },
-  {
-    accessorKey: "section",
-    header: "Section",
   },
   {
     accessorKey: "date_submitted",

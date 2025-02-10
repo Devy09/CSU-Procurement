@@ -1,8 +1,7 @@
 export type RequisitionTableColumn = {
     id: string;
     prno: string;
-    department: string;
-    section: string;
     date_submitted: string;
+    procurement_mode: string;
     pr_status: string;
   };

@@ -76,8 +76,6 @@ export function DataTable<TData, TValue>({
           filteredResult.map((item: any) => ({
             id: item.id,
             prno: item.prno,
-            department: item.department,
-            section: item.section,
             date_submitted: format(parseISO(item.date), 'PPP'),
             procurement_mode: item.procurementMode,
             pr_status: item.status,
